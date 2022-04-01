@@ -1,10 +1,13 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, SafeAreaView, Button } from "react-native";
-import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import React from "react";
 import styles from "./styles";
 import CustomButton from "../CustomButton/CustomButton.js";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
+  const pressHandler = () => {
+    navigation.navigate("Search");
+  };
+
   return (
     <View style={styles.appContainer}>
       <View style={styles.titles}>
@@ -15,18 +18,8 @@ const HomeScreen = () => {
       </View>
 
       <View style={styles.buttons}>
-        <CustomButton
-          title="SEARCH BY CITY"
-          onPress={() => {
-            console.log("City pressed");
-          }}
-        />
-        <CustomButton
-          title="SEARCH BY COUNTRY"
-          onPress={() => {
-            console.log("Country pressed");
-          }}
-        />
+        <CustomButton title="SEARCH BY CITY" onPress={pressHandler} />
+        <CustomButton title="SEARCH BY COUNTRY" onPress={pressHandler} />
       </View>
     </View>
   );

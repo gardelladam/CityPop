@@ -14,12 +14,6 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: "bold",
   },
-  subtitle: {
-    fontSize: 14,
-  },
-  buttons: {
-    flex: 2,
-  },
 });
 
 export default styles;
