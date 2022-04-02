@@ -5,13 +5,16 @@ const globalStyles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  container: {
+    flex: 5,
+  },
   topBar: {
     marginTop: StatusBar.currentHeight + 10,
     flex: 1,
   },
   titleContainer: {
     alignItems: "center",
-    flex: 2,
+    flex: 1,
   },
   title: {
     fontSize: 40,
@@ -21,7 +24,7 @@ const globalStyles = StyleSheet.create({
     fontSize: 14,
   },
   content: {
-    flex: 4,
+    flex: 2,
   },
 });
 
