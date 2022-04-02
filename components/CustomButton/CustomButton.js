@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./styles";
 
 const CustomButton = (props) => {
-  const { title, onPress, navigation } = props;
+  const { title, onPress } = props;
 
   return (
     <View style={styles.container}>

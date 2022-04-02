@@ -1,13 +1,19 @@
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Button } from "react-native";
 import React from "react";
 import styles from "./styles";
+import globalStyles from "../globalStyles";
 
-const SearchScreen = (props) => {
-  const type = props.type;
+const SearchScreen = ({ route, navigation }) => {
+  const { type } = route.params;
+
+  if (type === 1) {
+  }
+
   return (
-    <View style={styles.appContainer}>
-      <View style={styles.titles}>
-        <Text style={styles.title}>SearchScreen</Text>
+    <View style={globalStyles.appContainer}>
+      <View style={globalStyles.titleContainer}>
+        <Button title="Back" onPress={() => navigation.goBack()} />
+        <Text style={globalStyles.title}>{type}</Text>
       </View>
     </View>
   );
