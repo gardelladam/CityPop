@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import React, { useEffect } from "react";
-import CustomButton from "../CustomButton/CustomButton.js";
+import CustomButton from "../../components/CustomButton/CustomButton.js";
 import styles from "./styles";
-import globalStyles from "../globalStyles";
+import globalStyles from "../../globalStyles";
 
 const HomeScreen = ({ navigation }) => {
   return (

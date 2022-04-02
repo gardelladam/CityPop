@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, StatusBar } from "react-native";
 import Navigator from "./routes/Navigator.js";
-import globalStyles from "./components/globalStyles";
+import globalStyles from "./globalStyles";
 
 export default function App() {
   return <Navigator />;
