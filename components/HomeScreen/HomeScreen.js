@@ -6,7 +6,8 @@ import globalStyles from "../globalStyles";
 
 const HomeScreen = ({ navigation }) => {
   return (
-    <View style={globalStyles.appContainer}>
+    <SafeAreaView style={globalStyles.appContainer}>
+      <View style={globalStyles.topBar}></View>
       <View style={globalStyles.titleContainer}>
         <Text style={globalStyles.title}>CityPop</Text>
         <Text style={globalStyles.subtitle}>
@@ -14,7 +15,7 @@ const HomeScreen = ({ navigation }) => {
         </Text>
       </View>
 
-      <View style={styles.buttons}>
+      <View style={globalStyles.content}>
         <CustomButton
           title="SEARCH BY CITY"
           onPress={() => navigation.navigate("Search", { type: 1 })}
@@ -24,7 +25,7 @@ const HomeScreen = ({ navigation }) => {
           onPress={() => navigation.navigate("Search", { type: 2 })}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
