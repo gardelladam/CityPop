@@ -1,9 +1,11 @@
-// SearchBar, taken from https://blog.logrocket.com/create-react-native-search-bar-from-scratch/
-
 import React from "react";
 import { StyleSheet, TextInput, View, Keyboard, Button } from "react-native";
 import { Feather, Entypo } from "@expo/vector-icons";
 import styles from "./styles";
+
+/** SearchBar taken from https://blog.logrocket.com/create-react-native-search-bar-from-scratch/.
+ * Added function to set submit to true when submitting
+ */
 
 const SearchBar = (props) => {
   const {
@@ -36,7 +38,7 @@ const SearchBar = (props) => {
           placeholder={toolTip}
           value={searchPhrase}
           onChangeText={setSearchPhrase}
-          onSubmitEditing={() => setSubmit(true)}
+          onSubmitEditing={() => setSubmit(true)} // Submit search by setting submit state variable
           onFocus={() => {
             setClicked(true);
           }}

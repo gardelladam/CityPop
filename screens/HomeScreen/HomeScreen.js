@@ -4,6 +4,10 @@ import CustomButton from "../../components/CustomButton/CustomButton.js";
 import styles from "./styles";
 import globalStyles from "../../globalStyles";
 
+/**
+ * Home screen of the app. Contains titles and two buttons redirecting to the search screen
+ */
+
 const HomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={globalStyles.appContainer}>
@@ -19,11 +23,11 @@ const HomeScreen = ({ navigation }) => {
         <View style={globalStyles.content}>
           <CustomButton
             title="SEARCH BY CITY"
-            onPress={() => navigation.navigate("Search", { type: 1 })}
+            onPress={() => navigation.navigate("Search", { type: 1 })} // Navigate to search page and pass type: 1 (City)
           />
           <CustomButton
             title="SEARCH BY COUNTRY"
-            onPress={() => navigation.navigate("Search", { type: 2 })}
+            onPress={() => navigation.navigate("Search", { type: 2 })} // Navigate to search page and pass type: 2 (Country)
           />
         </View>
       </View>
