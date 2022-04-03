@@ -2,12 +2,14 @@ import { StyleSheet, Text, View, SafeAreaView, TextInput } from "react-native";
 import React, { useState, useEffect } from "react";
 import CustomButton from "../../components/CustomButton/CustomButton.js";
 import SearchContainer from "../../components/SearchContainer/SearchContainer.js";
-import SearchBar from "../../components/SearchBar/SearchBar.js";
+import CityResults from "../../components/CityResults/CityResults.js";
+import CountryResults from "../../components/CountryResults/CountryResults.js";
 import styles from "./styles";
 import globalStyles from "../../globalStyles";
 import Keys from "../../Keys.js";
 
-/** Screen that handles searching and displaying results.
+/**
+ * Screen that handles searching and displaying results.
  * Functions and displays differently depending on type passed by home screen (City or country search)
  * and if a search is made or not (show search bar or show results).
  */
@@ -71,12 +73,11 @@ const SearchScreen = ({ route, navigation }) => {
       } else {
         /** If data is successfully fetched. Display results depending on search type */
         if (data.length > 0) {
-          return (
-            <View style={globalStyles.titles}>
-              <Text> {data[0].name}</Text>
-              <Text> {data[0].population}</Text>
-            </View>
-          );
+          if (type === 1) {
+            return <CityResults data={data[0]} />;
+          } else {
+            return <CountryResults data={data[0]} />;
+          }
           /** If no data fetched */
         } else {
           return (

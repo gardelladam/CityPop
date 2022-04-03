@@ -3,7 +3,8 @@ import { StyleSheet, TextInput, View, Keyboard, Button } from "react-native";
 import { Feather, Entypo } from "@expo/vector-icons";
 import styles from "./styles";
 
-/** SearchBar taken from https://blog.logrocket.com/create-react-native-search-bar-from-scratch/.
+/**
+ * SearchBar taken from https://blog.logrocket.com/create-react-native-search-bar-from-scratch/.
  * Added function to set submit to true when submitting
  */
 

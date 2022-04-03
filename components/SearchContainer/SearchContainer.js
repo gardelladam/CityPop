@@ -4,7 +4,9 @@ import SearchBar from "../SearchBar/SearchBar.js";
 import styles from "./styles";
 import globalStyles from "../../globalStyles";
 
-/** Component to display on search screen when searching. Different title and tooltip depending on type of search */
+/**
+ * Component to display on search screen when searching. Different title and tooltip depending on type of search
+ */
 
 const SearchContainer = (props) => {
   const { type, searchPhrase, setSearchPhrase, submit, setSubmit } = props;
