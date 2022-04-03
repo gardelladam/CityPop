@@ -15,6 +15,7 @@ const SearchBar = (props) => {
     submit,
     setSubmit,
   } = props;
+
   return (
     <View style={styles.container}>
       <View

@@ -5,18 +5,36 @@ import SearchContainer from "../../components/SearchContainer/SearchContainer.js
 import SearchBar from "../../components/SearchBar/SearchBar.js";
 import styles from "./styles";
 import globalStyles from "../../globalStyles";
+import Keys from "../../Keys.js";
+
+const USERNAME = Keys.API_USERNAME;
+const BASE_GEO_URL = `http://api.geonames.org/searchJSON?q=`;
 
 const SearchScreen = ({ route, navigation }) => {
   const { type } = route.params;
 
   const [searchPhrase, setSearchPhrase] = useState("");
-  const [clicked, setClicked] = useState(false);
   const [submit, setSubmit] = useState(false);
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
 
-  const title = type === 1 ? "SEARCH BY CITY" : "SEARCH BY COUNTRY";
-  const toolTip = type === 1 ? "Enter a city" : "Enter a country";
+  let GEO_URL = "";
 
-  const search = <SearchContainer />;
+  useEffect(() => {
+    if (submit === true) {
+      console.log("fetch");
+      if (type === 1) {
+        GEO_URL = `${BASE_GEO_URL}${searchPhrase}&featureClass=P&maxRows=1&username=${USERNAME}`;
+      } else {
+        GEO_URL = `${BASE_GEO_URL}${searchPhrase}&featureClass=A&maxRows=10&username=${USERNAME}`;
+      }
+      fetch(GEO_URL)
+        .then((response) => response.json())
+        .then((json) => setData(json.geonames))
+        .catch((error) => console.error(error))
+        .finally(() => setLoading(false));
+    }
+  }, [submit]);
 
   const renderContent = () => {
     if (submit === false) {
@@ -30,11 +48,20 @@ const SearchScreen = ({ route, navigation }) => {
         />
       );
     } else {
-      return (
-        <View style={globalStyles.titles}>
-          <Text> {searchPhrase}</Text>
-        </View>
-      );
+      if (isLoading === true) {
+        return (
+          <View style={globalStyles.titles}>
+            <Text> Loading </Text>
+          </View>
+        );
+      } else if (isLoading === false) {
+        return (
+          <View style={globalStyles.titles}>
+            <Text> {data[0].name}</Text>
+            <Text> {data[0].population}</Text>
+          </View>
+        );
+      }
     }
   };
 
