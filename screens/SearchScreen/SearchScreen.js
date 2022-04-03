@@ -22,12 +22,12 @@ const SearchScreen = ({ route, navigation }) => {
 
   useEffect(() => {
     if (submit === true) {
-      console.log("fetch");
       if (type === 1) {
         GEO_URL = `${BASE_GEO_URL}${searchPhrase}&featureClass=P&maxRows=1&username=${USERNAME}`;
       } else {
-        GEO_URL = `${BASE_GEO_URL}${searchPhrase}&featureClass=A&maxRows=10&username=${USERNAME}`;
+        GEO_URL = `${BASE_GEO_URL}${searchPhrase}&featureCode=PCLI&maxRows=1&username=${USERNAME}`;
       }
+      console.log(GEO_URL);
       fetch(GEO_URL)
         .then((response) => response.json())
         .then((json) => setData(json.geonames))
@@ -54,13 +54,24 @@ const SearchScreen = ({ route, navigation }) => {
             <Text> Loading </Text>
           </View>
         );
-      } else if (isLoading === false) {
-        return (
-          <View style={globalStyles.titles}>
-            <Text> {data[0].name}</Text>
-            <Text> {data[0].population}</Text>
-          </View>
-        );
+      } else {
+        if (data.length > 0) {
+          return (
+            <View style={globalStyles.titles}>
+              <Text> {data[0].name}</Text>
+              <Text> {data[0].population}</Text>
+            </View>
+          );
+        } else {
+          return (
+            <View style={globalStyles.titles}>
+              <Text>
+                No results, check the spelling or try again with a different
+                search
+              </Text>
+            </View>
+          );
+        }
       }
     }
   };
