@@ -10,6 +10,7 @@ import globalStyles from "../../globalStyles";
 
 const CountryResults = (props) => {
   const countryName = props.data.name;
+  const cities = props.topCitiesData;
 
   return (
     <View style={globalStyles.container}>
@@ -17,7 +18,7 @@ const CountryResults = (props) => {
         <Text style={globalStyles.title}>{countryName}</Text>
       </View>
       <View style={globalStyles.content}>
-        <Text style={globalStyles.title}>{countryName}</Text>
+        <Text style={globalStyles.title}>{cities[0].name}</Text>
       </View>
     </View>
   );
