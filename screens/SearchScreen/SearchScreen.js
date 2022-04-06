@@ -19,14 +19,19 @@ const USERNAME = Keys.API_USERNAME; // Username for API call, replace with your 
 const BASE_GEO_URL = `http://api.geonames.org/searchJSON?`; // Base URL to API to fetch from
 
 const SearchScreen = ({ route, navigation }) => {
-  const { type } = route.params; // Get the type of search being passed
+  const { initialType } = route.params; // Get the type of search being passed
 
   /** State variables and functions for setting them using the useState hook */
   const [searchPhrase, setSearchPhrase] = useState(""); // Entered text in search bar
   const [submit, setSubmit] = useState(false); // Variable for submitting search
   const [isLoading, setLoading] = useState(true); // Variable for indicating data is loading
-  const [data, setData] = useState([]); // Variable for fetched primary data
+  const [cityData, setCityData] = useState([]); // Variable for fetched city data
+  const [countryData, setCountryData] = useState([]); // Variable for fetched country data
   const [topCitiesData, setTopCitiesData] = useState([]); // Variable for fetched data of top cities in a country
+  const [type, setType] = useState(initialType); // current type of result being shown
+
+  //console.log(cityData);
+  //(console.log(type);
 
   let GEO_URL = "";
 
@@ -39,7 +44,7 @@ const SearchScreen = ({ route, navigation }) => {
         /** fetch data from API using url, convert to json and set data variable. When finished, set loading to false */
         fetch(GEO_URL)
           .then((response) => response.json())
-          .then((json) => setData(json.geonames))
+          .then((json) => setCityData(json.geonames))
           .catch((error) => console.error(error))
           .finally(() => setLoading(false));
       } else {
@@ -52,11 +57,13 @@ const SearchScreen = ({ route, navigation }) => {
           })
           .then((json) => {
             res = json.geonames;
-            setData(res);
-            return res[0].countryCode;
+            setCountryData(res);
+            if (res.length > 0) {
+              return res[0].countryCode;
+            }
           })
           .then((code) => {
-            GEO_URL = `${BASE_GEO_URL}country=${code}&featureClass=P&maxRows=5&orderBy=population&username=${USERNAME}`; // Url to find top 5 populated cities using country code
+            GEO_URL = `${BASE_GEO_URL}country=${code}&featureClass=P&maxRows=3&orderBy=population&username=${USERNAME}`; // Url to find top 5 populated cities using country code
           })
           .then(() => {
             return fetch(GEO_URL)
@@ -95,16 +102,20 @@ const SearchScreen = ({ route, navigation }) => {
         /** Loading finished */
       } else {
         /** If data is successfully fetched. Display results depending on search type */
-        if (data.length > 0) {
-          if (type === 1) {
-            return <CityResults data={data[0]} />;
-          } else {
-            return (
-              <CountryResults data={data[0]} topCitiesData={topCitiesData} />
-            );
-          }
-          /** If no data fetched */
+        if (type === 1 && cityData.length > 0) {
+          return <CityResults data={cityData[0]} />;
+        } else if (type === 2 && countryData.length > 0) {
+          const countryName = countryData[0].name;
+          return (
+            <CountryResults
+              setCityData={setCityData}
+              setType={setType}
+              countryName={countryName}
+              topCitiesData={topCitiesData}
+            />
+          );
         } else {
+          /** If no data fetched */
           return (
             <View style={globalStyles.titles}>
               <Text>

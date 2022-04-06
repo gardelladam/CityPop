@@ -23,11 +23,11 @@ const HomeScreen = ({ navigation }) => {
         <View style={globalStyles.content}>
           <CustomButton
             title="SEARCH BY CITY"
-            onPress={() => navigation.navigate("Search", { type: 1 })} // Navigate to search page and pass type: 1 (City)
+            onPress={() => navigation.navigate("Search", { initialType: 1 })} // Navigate to search page and pass initial type: 1 (City)
           />
           <CustomButton
             title="SEARCH BY COUNTRY"
-            onPress={() => navigation.navigate("Search", { type: 2 })} // Navigate to search page and pass type: 2 (Country)
+            onPress={() => navigation.navigate("Search", { initialType: 2 })} // Navigate to search page and pass initial type: 2 (Country)
           />
         </View>
       </View>

@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import { StyleSheet, Text, View, FlatList } from "react-native";
 import React, { useState } from "react";
+import CustomButton from "../CustomButton/CustomButton.js";
 import styles from "./styles";
 import globalStyles from "../../globalStyles";
 
@@ -9,8 +10,7 @@ import globalStyles from "../../globalStyles";
  */
 
 const CountryResults = (props) => {
-  const countryName = props.data.name;
-  const cities = props.topCitiesData;
+  const { setCityData, setType, countryName, topCitiesData } = props;
 
   return (
     <View style={globalStyles.container}>
@@ -18,7 +18,14 @@ const CountryResults = (props) => {
         <Text style={globalStyles.title}>{countryName}</Text>
       </View>
       <View style={globalStyles.content}>
-        <Text style={globalStyles.title}>{cities[0].name}</Text>
+        <FlatList
+          style={globalStyles.content2}
+          keyExtractor={(item) => item.geonameId}
+          data={topCitiesData}
+          renderItem={({ item }) => (
+            <CustomButton title={item.name} onPress={() => {}} />
+          )}
+        />
       </View>
     </View>
   );
