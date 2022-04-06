@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomButton from "../CustomButton/CustomButton.js";
 import styles from "./styles";
 import globalStyles from "../../globalStyles";
@@ -12,6 +12,14 @@ import globalStyles from "../../globalStyles";
 const CountryResults = (props) => {
   const { setCityData, setType, countryName, topCitiesData } = props;
 
+  const [selectedCity, setSelectedCity] = useState(null);
+
+  useEffect(() => {
+    if (selectedCity !== null) {
+      setCityData(selectedCity).finally(() => setType(1));
+    }
+  }, [selectedCity]);
+
   return (
     <View style={globalStyles.container}>
       <View style={globalStyles.titleContainer}>
@@ -23,7 +31,12 @@ const CountryResults = (props) => {
           keyExtractor={(item) => item.geonameId}
           data={topCitiesData}
           renderItem={({ item }) => (
-            <CustomButton title={item.name} onPress={() => {}} />
+            <CustomButton
+              title={item.name}
+              onPress={() => {
+                setSelectedCity(item);
+              }} // Navigate to search page and pass type: 2 (Country)
+            />
           )}
         />
       </View>

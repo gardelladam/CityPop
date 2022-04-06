@@ -14,6 +14,7 @@ const globalStyles = StyleSheet.create({
   topBar: {
     marginTop: StatusBar.currentHeight + 10, // Margin to stay out of statusbar
     flex: 1,
+    width: "30%",
   },
   /** Container for everything below the top bar */
   container: {

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, SafeAreaView, TextInput } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import CustomButton from "../../components/CustomButton/CustomButton.js";
 import SearchContainer from "../../components/SearchContainer/SearchContainer.js";
 import CityResults from "../../components/CityResults/CityResults.js";
@@ -19,19 +19,16 @@ const USERNAME = Keys.API_USERNAME; // Username for API call, replace with your 
 const BASE_GEO_URL = `http://api.geonames.org/searchJSON?`; // Base URL to API to fetch from
 
 const SearchScreen = ({ route, navigation }) => {
-  const { initialType } = route.params; // Get the type of search being passed
+  const { type } = route.params; // Get the type of search being passed
 
   /** State variables and functions for setting them using the useState hook */
   const [searchPhrase, setSearchPhrase] = useState(""); // Entered text in search bar
   const [submit, setSubmit] = useState(false); // Variable for submitting search
   const [isLoading, setLoading] = useState(true); // Variable for indicating data is loading
-  const [cityData, setCityData] = useState([]); // Variable for fetched city data
-  const [countryData, setCountryData] = useState([]); // Variable for fetched country data
+  const [data, setData] = useState([]); // Variable for fetched primary data
+  //const [countryData, setCountryData] = useState([]); // Variable for fetched country data
   const [topCitiesData, setTopCitiesData] = useState([]); // Variable for fetched data of top cities in a country
-  const [type, setType] = useState(initialType); // current type of result being shown
-
-  //console.log(cityData);
-  //(console.log(type);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   let GEO_URL = "";
 
@@ -44,8 +41,11 @@ const SearchScreen = ({ route, navigation }) => {
         /** fetch data from API using url, convert to json and set data variable. When finished, set loading to false */
         fetch(GEO_URL)
           .then((response) => response.json())
-          .then((json) => setCityData(json.geonames))
-          .catch((error) => console.error(error))
+          .then((json) => setData(json.geonames))
+          .catch((error) => {
+            console.error(error);
+            //setErrorMessage(error.message);
+          })
           .finally(() => setLoading(false));
       } else {
         GEO_URL = `${BASE_GEO_URL}q=${searchPhrase}&featureCode=PCLI&maxRows=1&username=${USERNAME}`; // Country search url
@@ -57,7 +57,7 @@ const SearchScreen = ({ route, navigation }) => {
           })
           .then((json) => {
             res = json.geonames;
-            setCountryData(res);
+            setData(res);
             if (res.length > 0) {
               return res[0].countryCode;
             }
@@ -71,15 +71,34 @@ const SearchScreen = ({ route, navigation }) => {
               .then((json) => setTopCitiesData(json.geonames))
               .catch((error) => console.error(error));
           })
-          .catch((error) => console.error(error))
+          .catch((error) => {
+            console.error(error);
+            //setErrorMessage(error.message);
+          })
           .finally(() => setLoading(false));
       }
     }
   }, [submit]);
 
+  useEffect(() => {
+    if (isLoading === false) {
+      if (data.length > 0) {
+        if (type === 1) {
+          navigation.navigate("City", { data: data[0] });
+        } else {
+          navigation.navigate("Country", {
+            data: data[0],
+            topCitiesData: topCitiesData,
+          });
+        }
+      }
+    }
+  }, [isLoading]);
+
   /** Function to render the container on the screen depending on the state variables */
   const renderContent = () => {
     /** If nothing is submitted, return the search container. Pass search type, searchPhrase and submit together with set functions */
+
     if (submit === false) {
       return (
         <SearchContainer
@@ -90,37 +109,20 @@ const SearchScreen = ({ route, navigation }) => {
           setSubmit={setSubmit}
         />
       );
-      /** If submitted */
+      // If submitted, display loading indicator until data is fetched
     } else {
-      /** Display loading indicator until data is fetched */
-      if (isLoading === true) {
+      if (isLoading) {
         return (
           <View style={globalStyles.titles}>
             <Text> Loading </Text>
           </View>
         );
-        /** Loading finished */
       } else {
-        /** If data is successfully fetched. Display results depending on search type */
-        if (type === 1 && cityData.length > 0) {
-          return <CityResults data={cityData[0]} />;
-        } else if (type === 2 && countryData.length > 0) {
-          const countryName = countryData[0].name;
+        if (data.length < 1) {
           return (
-            <CountryResults
-              setCityData={setCityData}
-              setType={setType}
-              countryName={countryName}
-              topCitiesData={topCitiesData}
-            />
-          );
-        } else {
-          /** If no data fetched */
-          return (
-            <View style={globalStyles.titles}>
+            <View style={globalStyles.container}>
               <Text>
-                No results, check the spelling or try again with a different
-                search
+                No results, check the spelling or try a different search term{" "}
               </Text>
             </View>
           );
