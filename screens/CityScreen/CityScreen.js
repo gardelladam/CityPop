@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import styles from "./styles";
 import globalStyles from "../../globalStyles";
 import CustomButton from "../../components/CustomButton/CustomButton.js";
+import CityInfo from "../../components/CityInfo/CityInfo.js";
 
 /**
  * Component to display result of a search by city.
@@ -16,16 +17,13 @@ const CityScreen = ({ route, navigation }) => {
     <View style={globalStyles.appContainer}>
       <View style={globalStyles.container}>
         <View style={globalStyles.topBar}>
-          <CustomButton
-            title="Back"
-            onPress={() => navigation.navigate("Home")}
-          />
+          <CustomButton title="Back" onPress={() => navigation.popToTop()} />
         </View>
         <View style={globalStyles.titleContainer}>
           <Text style={globalStyles.title}>{data.name}</Text>
         </View>
         <View style={globalStyles.content}>
-          <Text style={globalStyles.title}>{data.population}</Text>
+          <CityInfo population={data.population} />
         </View>
       </View>
     </View>

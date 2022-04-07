@@ -1,9 +1,13 @@
-import { StyleSheet, Text, View, SafeAreaView, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ActivityIndicator,
+} from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import CustomButton from "../../components/CustomButton/CustomButton.js";
 import SearchContainer from "../../components/SearchContainer/SearchContainer.js";
-import CityResults from "../../components/CityResults/CityResults.js";
-import CountryResults from "../../components/CountryResults/CountryResults.js";
 import styles from "./styles";
 import globalStyles from "../../globalStyles";
 import Keys from "../../Keys.js";
@@ -44,7 +48,7 @@ const SearchScreen = ({ route, navigation }) => {
           .then((json) => setData(json.geonames))
           .catch((error) => {
             console.error(error);
-            //setErrorMessage(error.message);
+            setErrorMessage(error.message);
           })
           .finally(() => setLoading(false));
       } else {
@@ -56,7 +60,7 @@ const SearchScreen = ({ route, navigation }) => {
             return response.json();
           })
           .then((json) => {
-            res = json.geonames;
+            const res = json.geonames;
             setData(res);
             if (res.length > 0) {
               return res[0].countryCode;
@@ -73,7 +77,7 @@ const SearchScreen = ({ route, navigation }) => {
           })
           .catch((error) => {
             console.error(error);
-            //setErrorMessage(error.message);
+            setErrorMessage(error.message);
           })
           .finally(() => setLoading(false));
       }
@@ -113,16 +117,22 @@ const SearchScreen = ({ route, navigation }) => {
     } else {
       if (isLoading) {
         return (
-          <View style={globalStyles.titles}>
-            <Text> Loading </Text>
+          <View style={styles.placeHolder}>
+            <ActivityIndicator size="large" color="#0000ff" />
           </View>
         );
       } else {
-        if (data.length < 1) {
+        if (errorMessage) {
           return (
-            <View style={globalStyles.container}>
-              <Text>
-                No results, check the spelling or try a different search term{" "}
+            <View style={styles.placeHolder}>
+              <Text style={styles.text}> Error: {errorMessage}</Text>
+            </View>
+          );
+        } else if (data.length < 1) {
+          return (
+            <View style={styles.placeHolder}>
+              <Text style={styles.text}>
+                No results, check the spelling or try a different search term
               </Text>
             </View>
           );
@@ -134,7 +144,7 @@ const SearchScreen = ({ route, navigation }) => {
   return (
     <SafeAreaView style={globalStyles.appContainer}>
       <View style={globalStyles.topBar}>
-        <CustomButton title="Back" onPress={() => navigation.goBack()} />
+        <CustomButton title="Back" onPress={() => navigation.popToTop()} />
       </View>
       <View style={globalStyles.container}>{renderContent()}</View>
     </SafeAreaView>

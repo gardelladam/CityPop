@@ -10,7 +10,7 @@ import globalStyles from "../../globalStyles";
 
 const HomeScreen = ({ navigation }) => {
   return (
-    <SafeAreaView style={globalStyles.appContainer}>
+    <SafeAreaView style={globalStyles.screenContainer}>
       <View style={globalStyles.topBar}></View>
       <View style={globalStyles.container}>
         <View style={globalStyles.titleContainer}>

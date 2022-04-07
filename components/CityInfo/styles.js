@@ -4,17 +4,12 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     padding: 10,
-  },
-  button: {
-    backgroundColor: "grey",
-    height: 60,
-    borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
   },
   title: {
-    fontSize: 16,
-    color: "white",
+    fontSize: 26,
+    color: "black",
   },
 });
 

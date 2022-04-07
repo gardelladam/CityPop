@@ -10,7 +10,8 @@ const globalStyles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
-  /** Top bar. Only visible in search screen but used in home screen for consistency */
+  screenContainer: { width: "100%", height: "100%" },
+  /** Top bar. Only visible in search and result screens but used in home screen for consistency */
   topBar: {
     marginTop: StatusBar.currentHeight + 10, // Margin to stay out of statusbar
     flex: 1,
@@ -38,6 +39,12 @@ const globalStyles = StyleSheet.create({
   /** Content on the screen (buttons, searchbar etc.) */
   content: {
     flex: 3,
+  },
+
+  image: {
+    width: "100%",
+    height: "100%",
+    position: "absolute",
   },
 });
 
