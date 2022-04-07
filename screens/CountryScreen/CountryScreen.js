@@ -23,6 +23,16 @@ const CountryScreen = ({ route, navigation }) => {
           <Text style={globalStyles.title}>{data.name}</Text>
         </View>
         <View style={globalStyles.content}>
+          <View style={styles.center}>
+            <View style={styles.backButton}>
+              <SmallButton
+                title="Back to search"
+                onPress={() => {
+                  navigation.navigate("Search", { type: 2 });
+                }}
+              />
+            </View>
+          </View>
           <FlatList
             style={globalStyles.content2}
             keyExtractor={(item) => item.geonameId}
@@ -31,7 +41,7 @@ const CountryScreen = ({ route, navigation }) => {
               <CustomButton
                 title={item.name}
                 onPress={() => {
-                  navigation.navigate("City", { data: item });
+                  navigation.navigate("City", { data: item, redirected: true });
                 }}
               />
             )}

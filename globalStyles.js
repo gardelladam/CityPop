@@ -30,6 +30,7 @@ const globalStyles = StyleSheet.create({
   },
   /** Title styling */
   title: {
+    textAlign: "center",
     fontSize: 40,
     fontWeight: "bold",
   },
@@ -48,7 +49,7 @@ const globalStyles = StyleSheet.create({
   },
   /** Content on the screen (buttons, searchbar etc.) */
   content: {
-    flex: 2,
+    flex: 3,
   },
 
   image: {

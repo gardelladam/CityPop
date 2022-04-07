@@ -29,5 +29,9 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(250, 250, 250, 0.6)",
     borderRadius: 10,
   },
+  backButton: {
+    width: "50%",
+    padding: 5,
+  },
 });
 export default styles;

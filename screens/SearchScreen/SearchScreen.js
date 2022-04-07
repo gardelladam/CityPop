@@ -31,6 +31,12 @@ const SearchScreen = ({ route, navigation }) => {
 
   let GEO_URL = "";
 
+  const resetValues = () => {
+    setSubmit(false);
+    setLoading(true);
+    setSearchPhrase("");
+  };
+
   // useEffect hook for API call, executes when submit variable changes
   useEffect(() => {
     if (submit === true) {
@@ -48,12 +54,16 @@ const SearchScreen = ({ route, navigation }) => {
         setErrorMessage
       );
     }
+    return () => {};
   }, [submit === true]);
 
-  // useEffect hook for automatically navigating to one of th result pages when loading is set to false by the fetch function
+  // useEffect hook for automatically navigating to one of the result pages when loading is set to false by the fetch function
   useEffect(() => {
     if (isLoading === false) {
       if (data.length > 0) {
+        //Reset some variables
+        resetValues();
+
         if (type === 1) {
           navigation.navigate("City", { data: data[0] });
         } else {
@@ -64,6 +74,7 @@ const SearchScreen = ({ route, navigation }) => {
         }
       }
     }
+    return () => {};
   }, [isLoading]);
 
   /** Function to render the container on the screen depending on the state variables */
@@ -104,6 +115,14 @@ const SearchScreen = ({ route, navigation }) => {
         } else if (data.length < 1) {
           return (
             <View style={styles.placeHolder}>
+              <View style={styles.backButton}>
+                <SmallButton
+                  title="Back to search"
+                  onPress={() => {
+                    resetValues();
+                  }}
+                />
+              </View>
               <View style={styles.textContainer}>
                 <Text style={styles.text}>
                   No results, check the spelling or try a different search
