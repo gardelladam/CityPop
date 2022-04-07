@@ -33,37 +33,17 @@ const Navigator = () => {
           initialRouteName="Home" // Set home screen to default
           screenOptions={{
             headerShown: false,
-            animationEnabled: false,
+            animation: "none",
           }}
         >
           <Stack.Screen
             name="Home"
             component={HomeScreen}
-            options={{
-              animationEnabled: false,
-            }}
+            presentation="transparentModal"
           />
-          <Stack.Screen
-            name="Search"
-            component={SearchScreen}
-            options={{
-              animationEnabled: false,
-            }}
-          />
-          <Stack.Screen
-            name="City"
-            component={CityScreen}
-            options={{
-              animationEnabled: false,
-            }}
-          />
-          <Stack.Screen
-            name="Country"
-            component={CountryScreen}
-            options={{
-              gestureEnabled: false,
-            }}
-          />
+          <Stack.Screen name="Search" component={SearchScreen} />
+          <Stack.Screen name="City" component={CityScreen} />
+          <Stack.Screen name="Country" component={CountryScreen} />
         </Stack.Navigator>
         <StatusBar style="auto" />
       </NavigationContainer>
