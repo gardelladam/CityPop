@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     width: "90%",
   },
+  button: { left: 10 },
 });
 
 export default styles;

@@ -6,13 +6,14 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   button: {
-    backgroundColor: "grey",
+    backgroundColor: "rgba(100, 100, 100, 0.8)",
     height: 60,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
   },
   title: {
+    padding: 8,
     fontSize: 16,
     color: "white",
   },

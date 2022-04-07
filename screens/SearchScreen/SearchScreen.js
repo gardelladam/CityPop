@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import CustomButton from "../../components/CustomButton/CustomButton.js";
+import SmallButton from "../../components/SmallButton/SmallButton.js";
 import SearchContainer from "../../components/SearchContainer/SearchContainer.js";
 import styles from "./styles";
 import globalStyles from "../../globalStyles";
@@ -83,7 +84,10 @@ const SearchScreen = ({ route, navigation }) => {
       if (isLoading) {
         return (
           <View style={styles.placeHolder}>
-            <ActivityIndicator size="large" color="#0000ff" />
+            <View style={styles.loadingContainer}>
+              <ActivityIndicator size="large" color="black" />
+              <Text style={styles.loadingText}>Loading, please wait...</Text>
+            </View>
           </View>
         );
       } else {
@@ -91,16 +95,21 @@ const SearchScreen = ({ route, navigation }) => {
         if (errorMessage) {
           return (
             <View style={styles.placeHolder}>
-              <Text style={styles.text}> Error: {errorMessage}</Text>
+              <View style={styles.textContainer}>
+                <Text style={styles.text}> Error: {errorMessage}</Text>
+              </View>
             </View>
           );
           // if no data is set, display "no results"
         } else if (data.length < 1) {
           return (
             <View style={styles.placeHolder}>
-              <Text style={styles.text}>
-                No results, check the spelling or try a different search term
-              </Text>
+              <View style={styles.textContainer}>
+                <Text style={styles.text}>
+                  No results, check the spelling or try a different search
+                  term...
+                </Text>
+              </View>
             </View>
           );
         }
@@ -112,7 +121,7 @@ const SearchScreen = ({ route, navigation }) => {
   return (
     <SafeAreaView style={globalStyles.appContainer}>
       <View style={globalStyles.topBar}>
-        <CustomButton title="Home" onPress={() => navigation.popToTop()} />
+        <SmallButton title="Home" onPress={() => navigation.popToTop()} />
       </View>
       <View style={globalStyles.container}>{renderContent()}</View>
     </SafeAreaView>

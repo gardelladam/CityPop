@@ -10,14 +10,16 @@ import globalStyles from "../../globalStyles";
 
 const HomeScreen = ({ navigation }) => {
   return (
-    <SafeAreaView style={globalStyles.screenContainer}>
+    <SafeAreaView style={globalStyles.appContainer}>
       <View style={globalStyles.topBar}></View>
       <View style={globalStyles.container}>
         <View style={globalStyles.titleContainer}>
           <Text style={globalStyles.title}>CityPop</Text>
-          <Text style={globalStyles.subtitle}>
-            See the population size in your favorite cities
-          </Text>
+          <View style={globalStyles.titleBackground}>
+            <Text style={globalStyles.subtitle}>
+              See the population size in your favorite cities
+            </Text>
+          </View>
         </View>
 
         <View style={globalStyles.content}>

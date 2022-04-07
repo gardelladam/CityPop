@@ -1,19 +1,20 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  textContainer: {
-    width: "80%",
-    padding: 20,
+  container: {
+    width: "100%",
+  },
+  button: {
+    backgroundColor: "rgba(100, 100, 100, 0.8)",
+    borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(250, 250, 250, 0.9)",
-    borderRadius: 10,
   },
   title: {
-    fontSize: 26,
-    color: "black",
+    padding: 8,
+    fontSize: 16,
+    color: "white",
   },
-  backgroundBox: {},
 });
 
 export default styles;

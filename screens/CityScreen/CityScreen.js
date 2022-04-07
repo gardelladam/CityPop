@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import React, { useState } from "react";
 import styles from "./styles";
 import globalStyles from "../../globalStyles";
-import CustomButton from "../../components/CustomButton/CustomButton.js";
+import SmallButton from "../../components/SmallButton/SmallButton.js";
 import CityInfo from "../../components/CityInfo/CityInfo.js";
 
 /**
@@ -14,11 +14,11 @@ const CityScreen = ({ route, navigation }) => {
   const { data } = route.params;
 
   return (
-    <View style={globalStyles.appContainer}>
+    <SafeAreaView style={globalStyles.appContainer}>
+      <View style={globalStyles.topBar}>
+        <SmallButton title="Home" onPress={() => navigation.popToTop()} />
+      </View>
       <View style={globalStyles.container}>
-        <View style={globalStyles.topBar}>
-          <CustomButton title="Home" onPress={() => navigation.popToTop()} />
-        </View>
         <View style={globalStyles.titleContainer}>
           <Text style={globalStyles.title}>{data.name}</Text>
         </View>
@@ -28,7 +28,7 @@ const CityScreen = ({ route, navigation }) => {
           </View>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

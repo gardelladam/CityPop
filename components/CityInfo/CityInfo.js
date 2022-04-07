@@ -10,7 +10,7 @@ const CityInfo = (props) => {
   const { population } = props;
 
   return (
-    <View style={styles.container}>
+    <View style={styles.textContainer}>
       <Text style={styles.title}>Population</Text>
       <Text style={styles.title}>
         {

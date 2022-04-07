@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, TextInput, View, Keyboard, Button } from "react-native";
 import { Feather, Entypo } from "@expo/vector-icons";
 import styles from "./styles";
+import SmallButton from "../SmallButton/SmallButton.js";
 
 /**
  * SearchBar taken from https://blog.logrocket.com/create-react-native-search-bar-from-scratch/.
@@ -59,14 +60,15 @@ const SearchBar = (props) => {
       </View>
       {/* cancel button, depending on whether the search bar is clicked or not */}
       {clicked && (
-        <View>
-          <Button
+        <View style={styles.button}>
+          <SmallButton
             title="Cancel"
+            color="rgba(100, 100, 100, 0.8)"
             onPress={() => {
               Keyboard.dismiss();
               setClicked(false);
             }}
-          ></Button>
+          ></SmallButton>
         </View>
       )}
     </View>

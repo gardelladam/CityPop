@@ -10,16 +10,17 @@ const globalStyles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
-  screenContainer: { width: "100%", height: "100%" },
+
   /** Top bar. Only visible in search and result screens but used in home screen for consistency */
   topBar: {
     marginTop: StatusBar.currentHeight + 10, // Margin to stay out of statusbar
+    marginLeft: 10,
     flex: 1,
     width: "30%",
   },
   /** Container for everything below the top bar */
   container: {
-    flex: 5,
+    flex: 8,
   },
 
   /** Container for the title/titles  */
@@ -35,10 +36,19 @@ const globalStyles = StyleSheet.create({
   /** Subtitle styling */
   subtitle: {
     fontSize: 14,
+    padding: 10,
+    color: "black",
+  },
+  titleBackground: {
+    alignItems: "center",
+    width: "100%",
+    marginTop: 10,
+    backgroundColor: "rgba(250, 250, 250, 0.75)",
+    //borderRadius: 10,
   },
   /** Content on the screen (buttons, searchbar etc.) */
   content: {
-    flex: 3,
+    flex: 2,
   },
 
   image: {
