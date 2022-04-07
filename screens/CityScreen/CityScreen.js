@@ -17,7 +17,7 @@ const CityScreen = ({ route, navigation }) => {
     <View style={globalStyles.appContainer}>
       <View style={globalStyles.container}>
         <View style={globalStyles.topBar}>
-          <CustomButton title="Back" onPress={() => navigation.popToTop()} />
+          <CustomButton title="Home" onPress={() => navigation.popToTop()} />
         </View>
         <View style={globalStyles.titleContainer}>
           <Text style={globalStyles.title}>{data.name}</Text>

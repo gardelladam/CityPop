@@ -10,80 +10,46 @@ import CustomButton from "../../components/CustomButton/CustomButton.js";
 import SearchContainer from "../../components/SearchContainer/SearchContainer.js";
 import styles from "./styles";
 import globalStyles from "../../globalStyles";
-import Keys from "../../Keys.js";
+import { fetchData } from "../../services/fetchData.js";
 
 /**
- * Screen that handles searching and displaying results.
- * Functions and displays differently depending on type passed by home screen (City or country search)
- * and if a search is made or not (show search bar or show results).
+ * Screen that handles searching by calling separate function. Redirects to result screens if successful search.
+ * Also displays loading indicator or error messages
  */
 
-const USERNAME = Keys.API_USERNAME; // Username for API call, replace with your own
-
-const BASE_GEO_URL = `http://api.geonames.org/searchJSON?`; // Base URL to API to fetch from
-
 const SearchScreen = ({ route, navigation }) => {
-  const { type } = route.params; // Get the type of search being passed
+  const { type } = route.params; // Get the type of search being passed from home screen
 
   /** State variables and functions for setting them using the useState hook */
   const [searchPhrase, setSearchPhrase] = useState(""); // Entered text in search bar
   const [submit, setSubmit] = useState(false); // Variable for submitting search
   const [isLoading, setLoading] = useState(true); // Variable for indicating data is loading
-  const [data, setData] = useState([]); // Variable for fetched primary data
-  //const [countryData, setCountryData] = useState([]); // Variable for fetched country data
+  const [data, setData] = useState([]); // Variable for fetched primary data (City or country)
   const [topCitiesData, setTopCitiesData] = useState([]); // Variable for fetched data of top cities in a country
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null); // Variable to store potential error message to display
 
   let GEO_URL = "";
 
   // useEffect hook for API call, executes when submit variable changes
   useEffect(() => {
-    // If searchPhrase is submitted, make API call
     if (submit === true) {
-      if (type === 1) {
-        GEO_URL = `${BASE_GEO_URL}q=${searchPhrase}&featureClass=P&maxRows=1&username=${USERNAME}`; // City search url
-        /** fetch data from API using url, convert to json and set data variable. When finished, set loading to false */
-        fetch(GEO_URL)
-          .then((response) => response.json())
-          .then((json) => setData(json.geonames))
-          .catch((error) => {
-            console.error(error);
-            setErrorMessage(error.message);
-          })
-          .finally(() => setLoading(false));
-      } else {
-        GEO_URL = `${BASE_GEO_URL}q=${searchPhrase}&featureCode=PCLI&maxRows=1&username=${USERNAME}`; // Country search url
-        let countryCode = "";
-
-        fetch(GEO_URL)
-          .then((response) => {
-            return response.json();
-          })
-          .then((json) => {
-            const res = json.geonames;
-            setData(res);
-            if (res.length > 0) {
-              return res[0].countryCode;
-            }
-          })
-          .then((code) => {
-            GEO_URL = `${BASE_GEO_URL}country=${code}&featureClass=P&maxRows=3&orderBy=population&username=${USERNAME}`; // Url to find top 5 populated cities using country code
-          })
-          .then(() => {
-            return fetch(GEO_URL)
-              .then((response) => response.json())
-              .then((json) => setTopCitiesData(json.geonames))
-              .catch((error) => console.error(error));
-          })
-          .catch((error) => {
-            console.error(error);
-            setErrorMessage(error.message);
-          })
-          .finally(() => setLoading(false));
-      }
+      // Call fetchData in services/fetchData.js to fetch data and setting passed state variables
+      fetchData(
+        type,
+        searchPhrase,
+        isLoading,
+        setLoading,
+        data,
+        setData,
+        topCitiesData,
+        setTopCitiesData,
+        errorMessage,
+        setErrorMessage
+      );
     }
-  }, [submit]);
+  }, [submit === true]);
 
+  // useEffect hook for automatically navigating to one of th result pages when loading is set to false by the fetch function
   useEffect(() => {
     if (isLoading === false) {
       if (data.length > 0) {
@@ -102,7 +68,6 @@ const SearchScreen = ({ route, navigation }) => {
   /** Function to render the container on the screen depending on the state variables */
   const renderContent = () => {
     /** If nothing is submitted, return the search container. Pass search type, searchPhrase and submit together with set functions */
-
     if (submit === false) {
       return (
         <SearchContainer
@@ -113,7 +78,7 @@ const SearchScreen = ({ route, navigation }) => {
           setSubmit={setSubmit}
         />
       );
-      // If submitted, display loading indicator until data is fetched
+      // If submitted, display loading indicator until data is fetched and screen is changed
     } else {
       if (isLoading) {
         return (
@@ -122,12 +87,14 @@ const SearchScreen = ({ route, navigation }) => {
           </View>
         );
       } else {
+        // If error message exists, display it
         if (errorMessage) {
           return (
             <View style={styles.placeHolder}>
               <Text style={styles.text}> Error: {errorMessage}</Text>
             </View>
           );
+          // if no data is set, display "no results"
         } else if (data.length < 1) {
           return (
             <View style={styles.placeHolder}>
@@ -141,10 +108,11 @@ const SearchScreen = ({ route, navigation }) => {
     }
   };
 
+  // Component on screen
   return (
     <SafeAreaView style={globalStyles.appContainer}>
       <View style={globalStyles.topBar}>
-        <CustomButton title="Back" onPress={() => navigation.popToTop()} />
+        <CustomButton title="Home" onPress={() => navigation.popToTop()} />
       </View>
       <View style={globalStyles.container}>{renderContent()}</View>
     </SafeAreaView>
