@@ -1,11 +1,11 @@
-import Keys from "../Keys.js"; // Hidden file for username, replace with your own username
+//import Keys from "../Keys.js"; // Hidden file for username, replace with your own username
 
 /**
  * Function that handles fetching of data and is called by search screen. The function is passed the type of the search,
- * the searchphrase and some state variables for changing the data, error message and loading variable for the search screen
+ * the search phrase and some state variables for changing the data, error message and loading variable for the search screen
  */
 
-const USERNAME = Keys.API_USERNAME; // Username for API call, replace with your own
+const USERNAME = YOUR_USERNAME_HERE; // Username for API call, replace with your own
 const START_GEO_URL = `http://api.geonames.org/searchJSON?`; // Start of URL to the API to fetch from, ask for JSON format
 const END_GEO_URL = `&maxRows=1&username=${USERNAME}`; // End of URL, ask for one result and give username
 let GEO_URL = ""; // Variable for the url to be used in the search
