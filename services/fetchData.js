@@ -31,7 +31,6 @@ export const fetchData = (
       .then((response) => response.json())
       .then((json) => setData(json.geonames))
       .catch((error) => {
-        console.error(error);
         setErrorMessage(error.message);
       })
       .finally(() => setLoading(false));
@@ -52,16 +51,17 @@ export const fetchData = (
       })
       /** Set the url using the country code, then fetch the top populated cities, set state variable for the cities and set loading to false  */
       .then((code) => {
-        GEO_URL = `${START_GEO_URL}country=${code}&featureClass=P&maxRows=3&orderBy=population&username=${USERNAME}`; // Url to find top 5 populated cities using country code
+        GEO_URL = `${START_GEO_URL}country=${code}&featureClass=P&maxRows=3&orderby=population&username=${USERNAME}`; // Url to find top 5 populated cities using country code
       })
       .then(() => {
         return fetch(GEO_URL)
           .then((response) => response.json())
           .then((json) => setTopCitiesData(json.geonames))
-          .catch((error) => console.error(error));
+          .catch((error) => {
+            setErrorMessage(error.message);
+          });
       })
       .catch((error) => {
-        console.error(error);
         setErrorMessage(error.message);
       })
       .finally(() => setLoading(false));

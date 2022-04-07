@@ -45,7 +45,6 @@ const globalStyles = StyleSheet.create({
     width: "100%",
     marginTop: 10,
     backgroundColor: "rgba(250, 250, 250, 0.75)",
-    //borderRadius: 10,
   },
   /** Content on the screen (buttons, searchbar etc.) */
   content: {

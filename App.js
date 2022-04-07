@@ -1,10 +1,9 @@
-import { StyleSheet, Text, View, ImageBackground } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Navigator from "./routes/Navigator.js";
 import globalStyles from "./globalStyles";
-import CustomButton from "./components/CustomButton/CustomButton.js";
 
 /**
- * App.js, returns the navigator found in Navigator.js
+ * App.js, returns the navigator found in routes/Navigator.js
  */
 
 export default function App() {

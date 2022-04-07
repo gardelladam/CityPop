@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./styles";
 
 /**
- *  Custom cancel button component. Receives a title prop and an onPress prop
+ *  Custom button component. Receives a title prop and an onPress prop
  */
 const SmallButton = (props) => {
   const { title, onPress } = props;

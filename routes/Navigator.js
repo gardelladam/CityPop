@@ -33,7 +33,7 @@ const Navigator = () => {
           initialRouteName="Home" // Set home screen to default
           screenOptions={{
             headerShown: false,
-            animation: "none",
+            animation: "none", // Disable animations when navigating
           }}
         >
           <Stack.Screen

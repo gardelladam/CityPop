@@ -11,9 +11,10 @@ const CityInfo = (props) => {
 
   return (
     <View style={styles.textContainer}>
-      <Text style={styles.title}>Population</Text>
-      <Text style={styles.title}>
+      <Text style={styles.smallTitle}>Population</Text>
+      <Text style={styles.largeTitle}>
         {
+          /** Separate numbers at every thousand */
           <NumberFormat
             value={population}
             displayType={"text"}
