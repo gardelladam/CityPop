@@ -1,20 +1,8 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    padding: 10,
-  },
-  button: {
-    backgroundColor: "grey",
-    height: 60,
-    borderRadius: 10,
-    justifyContent: "center",
+  center: {
     alignItems: "center",
-  },
-  title: {
-    fontSize: 16,
-    color: "white",
   },
 });
 

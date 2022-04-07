@@ -23,7 +23,9 @@ const CityScreen = ({ route, navigation }) => {
           <Text style={globalStyles.title}>{data.name}</Text>
         </View>
         <View style={globalStyles.content}>
-          <CityInfo population={data.population} />
+          <View style={styles.center}>
+            <CityInfo population={data.population} />
+          </View>
         </View>
       </View>
     </View>
