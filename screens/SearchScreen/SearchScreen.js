@@ -62,6 +62,7 @@ const SearchScreen = ({ route, navigation }) => {
   // useEffect hook for automatically navigating to one of the result pages when loading is set to false by the fetch function
   useEffect(() => {
     if (isLoading === false) {
+      //Check that we got result before navigating.
       if (data.length > 0) {
         //Reset variables for when coming back to search page
         resetValues();
