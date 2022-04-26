@@ -31,6 +31,10 @@ const styles = StyleSheet.create({
     width: "90%",
   },
   button: { left: 10 },
+  errorMessage: {
+    padding: 10,
+    alignItems: "center",
+  },
 });
 
 export default styles;

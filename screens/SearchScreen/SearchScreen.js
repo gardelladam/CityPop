@@ -62,8 +62,8 @@ const SearchScreen = ({ route, navigation }) => {
   // useEffect hook for automatically navigating to one of the result pages when loading is set to false by the fetch function
   useEffect(() => {
     if (isLoading === false) {
-      //Check that we got result before navigating.
-      if (data.length > 0) {
+      //Check that we got result and population data is not 0 before navigating.
+      if (data.length > 0 && data[0].population > 0) {
         //Reset variables for when coming back to search page
         resetValues();
 
@@ -114,8 +114,8 @@ const SearchScreen = ({ route, navigation }) => {
               </View>
             </View>
           );
-          // if no data is set, display "no results"
-        } else if (data.length < 1) {
+          // if no data is set or no population, display "no results"
+        } else if (data.length < 1 || data[0].population < 1) {
           return (
             <View style={styles.placeHolder}>
               <View style={styles.backButton}>

@@ -8,7 +8,7 @@ import Keys from "../Keys.js"; // Hidden file for username, replace with your ow
 const USERNAME = Keys.API_USERNAME; // Username for API call, replace with your own
 const START_GEO_URL = `http://api.geonames.org/searchJSON?`; // Start of URL to the API to fetch from, ask for JSON format
 const END_GEO_URL = `&maxRows=1&username=${USERNAME}`; // End of URL, ask for one result and give username
-const CITY_URL = `&featureClass=P&featureCode=PPLA&featureCode=PPLA2&featureCode=PPLA3&featureCode=PPLA4&featureCode=PPLA5&featureCode=PPLC`; // Url for searching for cities of different sizes using class and codes from API
+const CITY_URL = `&featureClass=P&featureCode=PPL&featureCode=PPLA&featureCode=PPLA2&featureCode=PPLA3&featureCode=PPLA4&featureCode=PPLA5&featureCode=PPLC`; // Url for searching for cities of different sizes using class and codes from API
 let GEO_URL = ""; // Variable for the url to be used in the search
 
 export const fetchData = (
