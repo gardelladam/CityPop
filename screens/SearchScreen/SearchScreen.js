@@ -56,8 +56,11 @@ const SearchScreen = ({ route, navigation }) => {
         setErrorMessage
       );
     }
-    return () => {};
-  }, [submit === true]);
+    return () => {
+      setData([]);
+      setTopCitiesData([]);
+    };
+  }, [submit]);
 
   // useEffect hook for automatically navigating to one of the result pages when loading is set to false by the fetch function
   useEffect(() => {

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
   TextInput,
   View,
   Keyboard,
+  Pressable,
   Button,
 } from "react-native";
 import { Feather, Entypo } from "@expo/vector-icons";
@@ -20,7 +21,7 @@ const SearchBar = (props) => {
   const { toolTip, searchPhrase, setSearchPhrase, setSubmit } = props;
 
   const [clicked, setClicked] = useState(false); // Variable for changing style of search bar depending on clicked or not
-  const [errorMessage, setErrorMessage] = useState(""); // Variable for
+  const [errorMessage, setErrorMessage] = useState(null); // Variable for
 
   // Check if valid characters in string
   const isLetter = (str) => {
@@ -33,13 +34,29 @@ const SearchBar = (props) => {
     if (isLetter(searchPhrase)) {
       setSubmit(true);
     } else {
-      setClicked(false);
+      //setClicked(false);
       setErrorMessage("Enter alphabetical characters");
     }
   };
 
+  useEffect(() => {
+    setErrorMessage(null);
+
+    return () => {};
+  }, [searchPhrase]);
+
   return (
     <View>
+      <View style={styles.errorMessage}>
+        <Text
+          style={[
+            styles.errorText,
+            errorMessage ? styles.errorBackground : null,
+          ]}
+        >
+          {errorMessage}
+        </Text>
+      </View>
       <View style={styles.container}>
         <View
           style={
@@ -61,7 +78,6 @@ const SearchBar = (props) => {
             onChangeText={setSearchPhrase}
             onSubmitEditing={() => submit()} // Submit search by setting submit state variable
             onFocus={() => {
-              setErrorMessage("");
               setClicked(true);
             }}
           />
@@ -74,13 +90,14 @@ const SearchBar = (props) => {
               style={{ padding: 1 }}
               onPress={() => {
                 setSearchPhrase("");
+                setErrorMessage(null);
               }}
             />
           )}
         </View>
         {/* cancel button, depending on whether the search bar is clicked or not */}
         {clicked && (
-          <View style={styles.button}>
+          <View style={styles.cancelButton}>
             <SmallButton
               title="Cancel"
               color="rgba(100, 100, 100, 0.8)"
@@ -92,8 +109,15 @@ const SearchBar = (props) => {
           </View>
         )}
       </View>
-      <View style={styles.errorMessage}>
-        <Text style={{ color: "red" }}>{errorMessage}</Text>
+      <View>
+        <Pressable style={styles.searchButton} onPress={() => submit()}>
+          <Feather
+            name="search"
+            size={25}
+            color="white"
+            style={{ marginLeft: 1 }}
+          />
+        </Pressable>
       </View>
     </View>
   );

@@ -2,7 +2,9 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    margin: 15,
+    marginLeft: 15,
+    marginRight: 15,
+    marginBottom: 15,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
@@ -30,11 +32,22 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     width: "90%",
   },
-  button: { left: 10 },
+  cancelButton: { left: 10 },
+  searchButton: {
+    alignSelf: "center",
+    padding: 15,
+    borderRadius: 1000,
+    backgroundColor: "rgba(100, 100, 100, 0.8)",
+  },
   errorMessage: {
-    padding: 10,
+    height: 30,
     alignItems: "center",
   },
+  errorText: {
+    padding: 1,
+    color: "white",
+  },
+  errorBackground: { backgroundColor: "rgba(219, 20, 20, 1)" },
 });
 
 export default styles;
