@@ -17,7 +17,7 @@ const HomeScreen = ({ navigation }) => {
           <Text style={globalStyles.title}>CityPop</Text>
           <View style={globalStyles.titleBackground}>
             <Text style={globalStyles.subtitle}>
-              See the population size in your favorite cities
+              Find the population size of your favorite cities
             </Text>
           </View>
         </View>

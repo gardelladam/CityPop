@@ -46,13 +46,9 @@ const SearchScreen = ({ route, navigation }) => {
       fetchData(
         type,
         searchPhrase,
-        isLoading,
         setLoading,
-        data,
         setData,
-        topCitiesData,
         setTopCitiesData,
-        errorMessage,
         setErrorMessage
       );
     }
@@ -67,9 +63,6 @@ const SearchScreen = ({ route, navigation }) => {
     if (isLoading === false) {
       //Check that we got result and population data is not 0 before navigating.
       if (data.length > 0 && data[0].population > 0) {
-        //Reset variables for when coming back to search page
-        resetValues();
-
         if (type === 1) {
           navigation.navigate("City", { data: data[0] });
         } else {
@@ -78,6 +71,8 @@ const SearchScreen = ({ route, navigation }) => {
             topCitiesData: topCitiesData,
           });
         }
+        //Reset variables for when coming back to search page
+        resetValues();
       }
     }
     return () => {};

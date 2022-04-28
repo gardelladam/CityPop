@@ -10,7 +10,17 @@ const SmallButton = (props) => {
 
   return (
     <View style={styles.container}>
-      <Pressable style={styles.button} onPress={() => onPress()}>
+      <Pressable
+        style={({ pressed }) => [
+          {
+            backgroundColor: pressed
+              ? "rgba(90, 90, 90, 0.9)"
+              : "rgba(100, 100, 100, 0.8)",
+          },
+          styles.button,
+        ]}
+        onPress={() => onPress()}
+      >
         <Text style={styles.title}>{title}</Text>
       </Pressable>
     </View>

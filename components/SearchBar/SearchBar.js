@@ -14,7 +14,7 @@ import SmallButton from "../SmallButton/SmallButton.js";
 
 /**
  * SearchBar taken from https://blog.logrocket.com/create-react-native-search-bar-from-scratch/.
- * Added function to set submit to true when submitting
+ * Added function to set submit to true when submitting and error message for invalid input
  */
 
 const SearchBar = (props) => {
@@ -40,7 +40,9 @@ const SearchBar = (props) => {
   };
 
   useEffect(() => {
-    setErrorMessage(null);
+    if (errorMessage) {
+      setErrorMessage(null);
+    }
 
     return () => {};
   }, [searchPhrase]);
@@ -75,6 +77,8 @@ const SearchBar = (props) => {
             style={styles.input}
             placeholder={toolTip}
             value={searchPhrase}
+            maxLength={40}
+            autoCorrect={false}
             onChangeText={setSearchPhrase}
             onSubmitEditing={() => submit()} // Submit search by setting submit state variable
             onFocus={() => {
@@ -100,7 +104,6 @@ const SearchBar = (props) => {
           <View style={styles.cancelButton}>
             <SmallButton
               title="Cancel"
-              color="rgba(100, 100, 100, 0.8)"
               onPress={() => {
                 Keyboard.dismiss();
                 setClicked(false);
@@ -110,7 +113,17 @@ const SearchBar = (props) => {
         )}
       </View>
       <View>
-        <Pressable style={styles.searchButton} onPress={() => submit()}>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed
+                ? "rgba(90, 90, 90, 0.9)"
+                : "rgba(100, 100, 100, 0.8)",
+            },
+            styles.searchButton,
+          ]}
+          onPress={() => submit()}
+        >
           <Feather
             name="search"
             size={25}

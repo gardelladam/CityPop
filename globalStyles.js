@@ -31,8 +31,10 @@ const globalStyles = StyleSheet.create({
   /** Title styling */
   title: {
     textAlign: "center",
-    fontSize: 40,
+    fontSize: 35,
     fontWeight: "bold",
+    color: "rgba(30, 30, 30, 1)",
+    width: "70%",
   },
   /** Subtitle styling */
   subtitle: {

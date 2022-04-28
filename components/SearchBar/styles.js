@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     padding: 15,
     borderRadius: 1000,
-    backgroundColor: "rgba(100, 100, 100, 0.8)",
   },
   errorMessage: {
     height: 30,

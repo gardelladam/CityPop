@@ -14,18 +14,14 @@ let GEO_URL = ""; // Variable for the url to be used in the search
 export const fetchData = (
   type,
   searchPhrase,
-  isLoading,
   setLoading,
-  data,
   setData,
-  topCitiesData,
   setTopCitiesData,
-  errorMessage,
   setErrorMessage
 ) => {
   // If search type is city
   if (type === 1) {
-    GEO_URL = `${START_GEO_URL}name_equals=${searchPhrase}${CITY_URL}&orderby=relevance${END_GEO_URL}`; // City search url (feature class is P in API)
+    GEO_URL = `${START_GEO_URL}name_equals=${searchPhrase}${CITY_URL}&orderby=relevance${END_GEO_URL}`; // City search url
 
     /** Fetch city data from API using url, convert to JSON and set data state variable. When finished, set loading to false */
     fetch(GEO_URL)
@@ -37,7 +33,7 @@ export const fetchData = (
       .finally(() => setLoading(false));
     // If search for country instead
   } else {
-    GEO_URL = `${START_GEO_URL}name_equals=${searchPhrase}&featureCode=PCLI&orderby=relevance${END_GEO_URL}`; // Country search url (feature code is PCLI in API)
+    GEO_URL = `${START_GEO_URL}name=${searchPhrase}&featureCode=PCLI&orderby=relevance${END_GEO_URL}`; // Country search url (feature code is PCLI in API)
     /** Fetch first the country from the API using the url, convert to JSON, set data state variable and pass the country code to the nested fetch  */
     fetch(GEO_URL)
       .then((response) => {
@@ -52,7 +48,7 @@ export const fetchData = (
       })
       /** Set the url using the country code, then fetch the top populated cities, set state variable for the cities and set loading to false  */
       .then((code) => {
-        GEO_URL = `${START_GEO_URL}country=${code}&featureClass=P&maxRows=3&orderby=population&username=${USERNAME}`; // Url to find top 5 populated cities using country code
+        GEO_URL = `${START_GEO_URL}country=${code}${CITY_URL}&maxRows=3&orderby=population&username=${USERNAME}`; // Url to find top 5 populated cities using country code
       })
       .then(() => {
         return fetch(GEO_URL)
