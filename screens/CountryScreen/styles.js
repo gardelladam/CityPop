@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   backButton: {
-    width: "50%",
+    width: "40%",
     padding: 5,
   },
 });

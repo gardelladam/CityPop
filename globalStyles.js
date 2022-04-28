@@ -4,6 +4,11 @@ import { StyleSheet, StatusBar } from "react-native";
  * Global styles that are reused in many files. Flex layout used to distribute the space.
  */
 
+export const COLORS = {
+  BUTTON: "rgba(70, 110, 150, 0.8)",
+  BUTTON_PRESSED: "rgba(60, 100, 140, 0.9)",
+};
+
 const globalStyles = StyleSheet.create({
   /** The outer container, fills the screen */
   appContainer: {

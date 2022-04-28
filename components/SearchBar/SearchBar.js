@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { Feather, Entypo } from "@expo/vector-icons";
 import styles from "./styles";
+import { COLORS } from "../../globalStyles";
 import SmallButton from "../SmallButton/SmallButton.js";
 
 /**
@@ -116,9 +117,7 @@ const SearchBar = (props) => {
         <Pressable
           style={({ pressed }) => [
             {
-              backgroundColor: pressed
-                ? "rgba(90, 90, 90, 0.9)"
-                : "rgba(100, 100, 100, 0.8)",
+              backgroundColor: pressed ? COLORS.BUTTON_PRESSED : COLORS.BUTTON,
             },
             styles.searchButton,
           ]}

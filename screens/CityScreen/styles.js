@@ -5,11 +5,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttons: {
-    width: "100%",
+    alignSelf: "center",
+    width: "85%",
     padding: 5,
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
   },
+  backButton: {},
+  countryButton: {},
 });
 
 export default styles;

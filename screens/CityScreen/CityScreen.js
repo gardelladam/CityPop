@@ -40,7 +40,8 @@ const CityScreen = ({ route, navigation }) => {
               <SmallButton // Button to go back to search screen
                 title="Back to search"
                 onPress={() => {
-                  navigation.navigate("Search", { type: 1 }); // Type 1 for city search
+                  let backType = redirected ? 2 : 1;
+                  navigation.navigate("Search", { type: backType }); // Type of search screen depends on redirected from country or not
                 }}
               />
             </View>
